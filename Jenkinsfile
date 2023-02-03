@@ -9,16 +9,16 @@ pipeline {
         }
         stage('Setup Environment'){
             steps{
-                python -m venv jenkins_test_env
-                cd jenkins_test_env/Scripts
-                sh "activate.bat"
-                cd ../..
-                pip install -r requirements.txt
+                sh 'python -m venv jenkins_test_env'
+                sh 'cd jenkins_test_env/Scripts'
+                sh 'activate.bat'
+                sh 'cd ../..'
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('Run Tests'){
             steps{
-                py.test
+                sh 'py.test'
             }
         }
     }
