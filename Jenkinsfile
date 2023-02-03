@@ -21,9 +21,14 @@ pipeline {
         stage('Run Tests'){
             steps{
                 bat '''
-                py.test
+                py.test -v --junitxml="report.xml"
                 '''
             }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'report.xml', fingerprint: true
         }
     }
 }
