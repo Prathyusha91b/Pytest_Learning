@@ -7,5 +7,19 @@ pipeline {
                 echo 'This is from Jenkinsfile in Github'
             }
         }
+        stage('Setup Environment'){
+            steps{
+                python -m venv jenkins_test_env
+                cd jenkins_test_env/Scripts
+                sh "activate.bat"
+                cd ../..
+                pip install -r requirements.txt
+            }
+        }
+        stage('Run Tests'){
+            steps{
+                py.test
+            }
+        }
     }
 }
